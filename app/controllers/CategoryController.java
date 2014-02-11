@@ -1,6 +1,7 @@
 package controllers;
 
 import models.Category;
+import org.jboss.logging.Logger;
 import play.mvc.Controller;
 import play.mvc.Result;
 
@@ -12,19 +13,24 @@ import javax.persistence.EntityManager;
 import javax.sql.DataSource;
 import play.db.jpa.Transactional;
 
+
+import java.util.Iterator;
+import java.util.List;
+
 /**
  * Created with IntelliJ IDEA.
  * User: ruijiang
  * Date: 2/5/14
  * Time: 7:41 PM
- * To change this template use File | Settings | File Templates.
  */
 @Transactional
 public class CategoryController extends Controller {
+    private static final Logger logger = Logger.getLogger(CategoryController.class.getName());
 
     public static Result list() {
         try {
-            Category.findById(1L);
+            List<Category> categoryList = (List<Category>) Category.findAll();
+            System.out.println("category list size is " + categoryList.size());
         } catch (Exception ex) {
             ex.printStackTrace();
         }

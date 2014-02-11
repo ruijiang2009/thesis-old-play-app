@@ -9,6 +9,6 @@ GET     /                           controllers.Application.index()
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
 
 GET     /category/:id                        controllers.CategoryController.show(id: Long)
-GET     /category/all                        controllers.CategoryController.list()
+GET     /category/                           controllers.CategoryController.list()
 
 # GET     /permission/:id                      controllers.Permission.show(id: Long)
