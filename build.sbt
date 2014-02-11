@@ -27,3 +27,11 @@ libraryDependencies += "org.hibernate" % "hibernate-entitymanager" % "4.2.8.Fina
 
 
 play.Project.playJavaSettings
+
+
+// include bootstrap 3.0
+//play.Keys.lessEntryPoints <<= baseDirectory { base =>
+//  (base / "app" / "assets" / "stylesheets" / "bootstrap" * "bootstrap.less") +++
+//    (base / "app" / "assets" / "stylesheets" / "bootstrap" * "responsive.less") +++
+//    (base / "app" / "assets" / "stylesheets" * "*.less")
+//}
