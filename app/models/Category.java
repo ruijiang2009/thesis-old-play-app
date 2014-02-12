@@ -48,11 +48,11 @@ public class Category implements Serializable {
     }
 
     public static Category findById(Long id) {
-//        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("defaultPersistenceUnit");
-//        EntityManager entityManager = entityManagerFactory.createEntityManager();
-//        return entityManager.find(Category.class, id);
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("defaultPersistenceUnit");
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        return entityManager.find(Category.class, id);
 
-        return JPA.em().find(Category.class, id);
+//        return JPA.em().find(Category.class, id);
     }
 
     @play.db.jpa.Transactional

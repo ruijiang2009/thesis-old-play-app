@@ -23,7 +23,7 @@ public class CategoryController extends Controller {
         System.out.println("list function");
         List<Category> categoryList = null;
         try {
-             categoryList = Category.findAll();
+            categoryList = Category.findAll();
             System.out.println("category list size is " + categoryList.size());
         } catch (Exception ex) {
             ex.printStackTrace();

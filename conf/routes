@@ -11,4 +11,6 @@ GET     /assets/*file                          controllers.Assets.at(path="/publ
 GET     /category/                             controllers.CategoryController.show(id: Long ?= 0, name: String ?= "")
 GET     /category/all                          controllers.CategoryController.list()
 
+GET     /app/:id                               controllers.AppController.show(id: Long)
+
 # GET     /permission/:id                      controllers.Permission.show(id: Long)
