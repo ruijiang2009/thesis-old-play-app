@@ -13,4 +13,5 @@ GET     /category/all                          controllers.CategoryController.li
 
 GET     /app/:id                               controllers.AppController.show(id: Long)
 
-# GET     /permission/:id                      controllers.Permission.show(id: Long)
+
+GET     /permission/:id                        controllers.PermissionController.show(id: Long)

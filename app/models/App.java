@@ -74,12 +74,16 @@ public class App {
     public static List<App> findByPermissionId(Long id) {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("defaultPersistenceUnit");
         EntityManager entityManager = entityManagerFactory.createEntityManager();
-        Query query = JPA.em().createNativeQuery(
-                String.format("select a.id, a.name " +
+        Query query = entityManager.createNativeQuery(
+                String.format("select a.id, a.name, a.description " +
                         "from app a " +
                         "join app_permission_map apm on a.id = apm.app " +
                         "join permission p on apm.permission = p.id where p.id = %d;", id),
                 App.class);
+        System.out.println(String.format("select a.id, a.name " +
+                "from app a " +
+                "join app_permission_map apm on a.id = apm.app " +
+                "join permission p on apm.permission = p.id where p.id = %d;", id));
         return query.getResultList();
     }
 
