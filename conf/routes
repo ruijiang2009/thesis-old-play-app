@@ -15,3 +15,6 @@ GET     /app/:id                               controllers.AppController.show(id
 
 
 GET     /permission/:id                        controllers.PermissionController.show(id: Long)
+
+
+GET     /operation/parse_sentence                controllers.OperationController.parseSentence()

@@ -1,25 +1,38 @@
-@(app: App, permissions: List[Permission])
+@(app: App, permissions: List[Permission], sentences: List[Sentence], categories: List[Category])
 
-<!DOCTYPE html>
-<html>
-<head>
-    <title>App @app.getName()</title>
-    <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/main.css")">
-    <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
-    <script src="@routes.Assets.at("javascripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css">
+@header("App: " + app.getName())
 
-        <!-- Optional theme -->
-            <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap-theme.min.css">
-
-        <!-- Latest compiled and minified JavaScript -->
-            <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
-</head>
-<body>
     <div class="container">
-        Description
+        Description:<br>
         @app.getDescription();
+        <br><br>
+
+        Sentences:<br>
+        <table class="table table-striped table-bordered">
+            @for(sentence <- sentences) {
+                <tr>
+                    <td>
+                    @sentence.getContent()
+                    </td>
+                </tr>
+            }
+        </table>
+
+        <br><br>
+
+        Category: <br>
+        <table class="table table-striped table-bordered">
+            @for(category<- categories) {
+            <tr>
+                <td>@category.getId()</td>
+                <td><a href="/category/?id=@category.getId()">@category.getName()</td>
+            </tr>
+            }
+        </table>
+
+        <br><br>
+
+        Permission: <br>
         <table class="table table-striped table-bordered">
             <th>Id</th><th>Permission Name</th>
             @for(permission <- permissions) {
@@ -34,5 +47,5 @@
             }
         </table>
     </div>
-</body>
-</html>
+
+@footer()

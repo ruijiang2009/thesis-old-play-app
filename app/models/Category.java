@@ -63,4 +63,11 @@ public class Category implements Serializable {
         return categories;
     }
 
+    @Transactional
+    public static List<Category> findByApp(Long app) {
+        Query query = JPA.em().createNativeQuery(String.format("SELECT c.id, c.name FROM category c JOIN app_category_map acm ON c.id=acm.category  WHERE app=%d", app),
+                Category.class);
+        return  query.getResultList();
+    }
+
 }

@@ -26,6 +26,10 @@ libraryDependencies += "org.hibernate" % "hibernate-entitymanager" % "4.2.8.Fina
 //libraryDependencies += "org.hibernate" % "hibernate-core" % "4.3.0.Final"
 
 
+libraryDependencies += "edu.stanford.nlp" % "stanford-corenlp" % "3.3.1"
+
+libraryDependencies += "edu.stanford.nlp" % "stanford-parser" % "3.3.1"
+
 play.Project.playJavaSettings
 
 
