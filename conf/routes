@@ -12,9 +12,9 @@ GET     /category/                             controllers.CategoryController.sh
 GET     /category/all                          controllers.CategoryController.list()
 
 GET     /app/:id                               controllers.AppController.show(id: Long)
-
+#   GET     /app/:id/sentence                      controllers.AppController.edit(id: Long)
 
 GET     /permission/:id                        controllers.PermissionController.show(id: Long)
-
+GET     /permission/                           controllers.PermissionController.list()
 
 GET     /operation/parse_sentence                controllers.OperationController.parseSentence()

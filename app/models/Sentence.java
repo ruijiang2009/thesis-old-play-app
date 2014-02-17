@@ -5,6 +5,7 @@ import play.db.jpa.JPA;
 import play.db.jpa.Transactional;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -16,7 +17,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "sentence")
-public class Sentence {
+public class Sentence implements Serializable{
     private static final long serialVersionUID = 4264546498700495061L;
 
     @Id

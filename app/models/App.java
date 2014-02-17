@@ -8,9 +8,7 @@ import javax.persistence.*;
 import java.io.Reader;
 import java.io.Serializable;
 import java.io.StringReader;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -20,7 +18,7 @@ import java.util.List;
  */
 @Entity
 @Table(name = "app")
-public class App {
+public class App implements Serializable{
 
     private static final long serialVersionUID = 4264546498700495061L;
 
@@ -33,6 +31,9 @@ public class App {
 
     @Column(name = "description")
     private String description;
+
+//    @ManyToMany(mappedBy = "app_permission_map")
+//    private Set<Permission> permissions = new HashSet<Permission>();
 
     public Long getId() {
         return id;
@@ -124,6 +125,8 @@ public class App {
         }
         return sentenceList;
     }
+
+
 
 
 
