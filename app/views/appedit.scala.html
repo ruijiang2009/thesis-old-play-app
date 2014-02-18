@@ -1,0 +1,74 @@
+@(app: App, permissions: List[Permission], sentences: List[Sentence], categories: List[Category])
+
+@header("App: " + app.getName())
+
+<div class="container">
+    This is edit mode. <br><br>
+
+    App: @app.getName()<br><br>
+
+    Description:<br>
+    @app.getDescription();
+    <br><br>
+
+    Sentences:<br>
+    <form class="form-horizontal" role="form" id="sentenceform" action="@routes.AppController.processSentenceSubmit()" method="post">
+        @for(sentence <- sentences) {
+            @sentence.getContent()<br>
+            <table>
+                @if(0 == sentence.getProcessedSentences.size()) {
+                    <tr>
+                        <td><input type="text" id="@sentence.getId()_1"/> </td>
+                    </tr>
+                    <tr>
+                        <td><input type="text" id="@sentence.getId()_2"/> </td>
+                    </tr>
+                    <tr>
+                        <td><input type="text" id="@sentence.getId()_3"/> </td>
+                    </tr>
+                } else {
+                    @for(processedsentence <- sentence.getProcessedSentences()) {
+                        <tr>
+                            <td><input type="text" id="@sentence.getId()_@processedsentence.getId()" value="@processedsentence.getContent()"/></td>
+                        </tr>
+                    }
+                }
+            </table>
+        }
+        <div class="form-group">
+                <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </form>
+
+
+
+
+    Category: <br>
+    <table class="table table-striped table-bordered">
+        @for(category<- categories) {
+        <tr>
+            <td>@category.getId()</td>
+            <td><a href="/category/?id=@category.getId()">@category.getName()</a></td>
+        </tr>
+        }
+    </table>
+
+    <br><br>
+
+    Permission: <br>
+    <table class="table table-striped table-bordered">
+        <th>Id</th><th>Permission Name</th>
+        @for(permission <- permissions) {
+        <tr>
+            <td>
+                @permission.getId()
+            </td>
+            <td>
+                <a href="/permission/@permission.getId()">@permission.getName()</a>
+            </td>
+        </tr>
+        }
+    </table>
+</div>
+
+@footer()

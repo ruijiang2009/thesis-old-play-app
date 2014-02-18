@@ -6,7 +6,9 @@ import play.db.jpa.Transactional;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created with IntelliJ IDEA.
@@ -20,8 +22,11 @@ import java.util.List;
 public class Sentence implements Serializable{
     private static final long serialVersionUID = 4264546498700495061L;
 
+    @OneToMany(mappedBy = "sentence")
+//    @JoinColumn(name ="id", nullable = true)
+    private Set<ProcessedSentence> processedSentences= new HashSet<ProcessedSentence>();
+
     @Id
-//    @GeneratedValue(strategy = GenerationType.AUTO)
     @GenericGenerator(name="kaugen" , strategy="increment")
     @GeneratedValue(generator="kaugen")
     @Column(name = "id")
@@ -32,6 +37,16 @@ public class Sentence implements Serializable{
 
     @Column(name = "app")
     private Long app;
+
+
+//    @OneToMany(fetch = FetchType.LAZY, mappedBy = "id")
+    public Set<ProcessedSentence> getProcessedSentences() {
+        return this.processedSentences;
+    }
+
+    public void setProcessedSentences(Set<ProcessedSentence> processedSentences) {
+        this.processedSentences = processedSentences;
+    }
 
     public Sentence() {
 
