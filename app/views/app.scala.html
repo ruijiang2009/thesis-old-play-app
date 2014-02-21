@@ -3,7 +3,7 @@
 @header("App: " + app.getName())
 
     <div class="container">
-        App: @app.getName()<br><br>
+        App: @app.getName()  <a href="/app/?id=@app.getId()&op=edit">edit</a> <br><br>
 
         Description:<br>
         @app.getDescription();

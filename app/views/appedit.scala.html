@@ -5,7 +5,7 @@
 <div class="container">
     This is edit mode. <br><br>
 
-    App: @app.getName()<br><br>
+    App: @app.getName() <a href="/app/?id=@app.getId()">view</a><br><br>
 
     Description:<br>
     @app.getDescription();
@@ -16,28 +16,24 @@
         @for(sentence <- sentences) {
             @sentence.getContent()<br>
             <table>
-                @if(0 == sentence.getProcessedSentences.size()) {
-                    <tr>
-                        <td><input type="text" id="@sentence.getId()_1"/> </td>
-                    </tr>
-                    <tr>
-                        <td><input type="text" id="@sentence.getId()_2"/> </td>
-                    </tr>
-                    <tr>
-                        <td><input type="text" id="@sentence.getId()_3"/> </td>
-                    </tr>
-                } else {
+                <input type="hidden" name="@sentence.getId()_num" value="@sentence.getProcessedSentences.size()" />
+                @if(sentence.getProcessedSentences.size() < 3) {
                     @for(processedsentence <- sentence.getProcessedSentences()) {
                         <tr>
-                            <td><input type="text" id="@sentence.getId()_@processedsentence.getId()" value="@processedsentence.getContent()"/></td>
+                            <td><input type="text" class="form-control" id="@sentence.getId()_@processedsentence.getId()" name="@sentence.getId()_@processedsentence.getId()" value="@processedsentence.getContent()"/></td>
+                        </tr>
+                    }
+                    @for(x <- 1 to (3-sentence.getProcessedSentences().size())) {
+                        <tr>
+                            <td><input type="text" class="form-control" size="150" id="@sentence.getId()_@x" name="@sentence.getId()_@x"/></td>
                         </tr>
                     }
                 }
             </table>
         }
-        <div class="form-group">
-                <button type="submit" class="btn btn-primary">Submit</button>
-        </div>
+        <br>
+        <button type="submit" class="btn btn-primary">Submit</button>
+
     </form>
 
 

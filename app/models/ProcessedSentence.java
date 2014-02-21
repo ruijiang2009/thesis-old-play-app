@@ -24,9 +24,6 @@ public class ProcessedSentence implements  Serializable{
     @Column(name = "content")
     private String content;
 
-//    @Column(name = "sentence")
-    private Long sentenceId;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "sentence", nullable = false)
     private Sentence sentence;
@@ -35,20 +32,12 @@ public class ProcessedSentence implements  Serializable{
         return id;
     }
 
-    public Long getSentenceId() {
-        return sentenceId;
-    }
-
     public String getContent() {
         return content;
     }
 
     public Sentence getSentence() {
         return sentence;
-    }
-
-    public void setSentenceId(Long sentenceId) {
-        this.sentenceId = sentenceId;
     }
 
     public void setContent(String content) {
