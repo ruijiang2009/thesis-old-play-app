@@ -40,10 +40,27 @@ public class ProcessedSentence implements  Serializable{
         return sentence;
     }
 
+    public void setSentence(Sentence sentence) {
+        this.sentence = sentence;
+    }
+
     public void setContent(String content) {
         this.content = content;
     }
 
+    public ProcessedSentence(Long id, String content, Sentence sentence) {
+        this.id = id;
+        this.content = content;
+        this.sentence = sentence;
+    }
+
+    public ProcessedSentence(String content, Sentence sentence) {
+        this(null, content, sentence);
+    }
+
+    public ProcessedSentence() {
+        this(null, null, null);
+    }
 }
 
 

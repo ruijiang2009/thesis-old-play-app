@@ -97,4 +97,10 @@ public class Sentence implements Serializable{
         Query query = JPA.em().createNativeQuery(String.format("SELECT id, content, app FROM sentence WHERE app = %d", id), Sentence.class);
         return query.getResultList();
     }
+
+    public static Sentence findById(Long id) {
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("defaultPersistenceUnit");
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        return entityManager.find(Sentence.class, id);
+    }
 }

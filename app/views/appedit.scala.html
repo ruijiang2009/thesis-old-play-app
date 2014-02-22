@@ -16,7 +16,6 @@
         @for(sentence <- sentences) {
             @sentence.getContent()<br>
             <table>
-                <input type="hidden" name="@sentence.getId()_num" value="@sentence.getProcessedSentences.size()" />
                 @if(sentence.getProcessedSentences.size() < 3) {
                     @for(processedsentence <- sentence.getProcessedSentences()) {
                         <tr>
@@ -25,7 +24,11 @@
                     }
                     @for(x <- 1 to (3-sentence.getProcessedSentences().size())) {
                         <tr>
-                            <td><input type="text" class="form-control" size="150" id="@sentence.getId()_@x" name="@sentence.getId()_@x"/></td>
+                        @if(x == 1 && sentence.getProcessedSentences.size() == 0) {
+                            <td><input type="text" class="form-control" size="150" id="@sentence.getId()_new_@x" name="@sentence.getId()_new_@x" value="@sentence.getContent()"/></td>
+                        } else {
+                            <td><input type="text" class="form-control" size="150" id="@sentence.getId()_new_@x" name="@sentence.getId()_new_@x"/></td>
+                        }
                         </tr>
                     }
                 }
