@@ -61,6 +61,12 @@ public class ProcessedSentence implements  Serializable{
     public ProcessedSentence() {
         this(null, null, null);
     }
+
+    public static ProcessedSentence findById(Long id) {
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("defaultPersistenceUnit");
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        return entityManager.find(ProcessedSentence.class, id);
+    }
 }
 
 

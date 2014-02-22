@@ -32,10 +32,10 @@ public class AppController extends Controller{
         List<Permission> permissions = Permission.findByAppId(app.getId());
         List<Sentence> sentenceList = Sentence.findByApp(app.getId());
         List<Category> categoryList = Category.findByApp(app.getId());
-        if(operation.equals("edit")) {
-            return ok(views.html.appedit.render(app, permissions,sentenceList, categoryList));
-        } else {
+        if(operation == null || !operation.equals("edit")) {
             return ok(views.html.app.render(app, permissions,sentenceList, categoryList));
+        } else {
+            return ok(views.html.appedit.render(app, permissions,sentenceList, categoryList));
         }
     }
 
@@ -48,6 +48,7 @@ public class AppController extends Controller{
         return ok(views.html.appedit.render(app, permissions,sentenceList, categoryList));
     }
 
+    @Transactional
     public static Result processSentenceSubmit() {
         DynamicForm requestData = Form.form().bindFromRequest();
         System.out.println("processSentencesubmit");
@@ -61,7 +62,12 @@ public class AppController extends Controller{
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("defaultPersistenceUnit");
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         entityManager.getTransaction().begin();
+        String appId = null;
         for(Map.Entry<String, String> entry : data.entrySet()) {
+            if(entry.getKey().equals("appId")) {
+                appId = entry.getValue();
+                continue;
+            }
             String[] strs = entry.getKey().split("_");
 
             System.out.println("key " + entry.getKey() + " value " + entry.getValue());
@@ -88,14 +94,14 @@ public class AppController extends Controller{
             } else {
                 // refresh
                 System.out.println("refresh an old processed sentence " + processedSentenceContent);
-                entityManager.refresh(new ProcessedSentence(Long.parseLong(processedSentenceId), processedSentenceContent, sentence));
+                ProcessedSentence processedSentence = ProcessedSentence.findById(Long.parseLong(processedSentenceId));
+                processedSentence.setContent(processedSentenceContent);
+                entityManager.merge(processedSentence);
             }
         }
         entityManager.getTransaction().commit();
         entityManager.close();
         // persist the objects in list
-        return ok(index.render("Your new application is ready."));
+        return redirect(routes.AppController.show(Long.parseLong(appId), ""));
     }
-
-
 }
