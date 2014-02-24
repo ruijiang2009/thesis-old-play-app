@@ -87,7 +87,9 @@ public class Permission  implements Serializable{
                         "join app_permission_map apm on a.id = apm.app " +
                         "join permission p on apm.permission = p.id where a.id = %d;", id),
                 Permission.class);
-        return query.getResultList();
+        List<Permission> result = query.getResultList();
+        entityManager.close();
+        return result;
     }
 
 //    public static List findByRank() {
@@ -105,6 +107,8 @@ public class Permission  implements Serializable{
     public static List<Permission> findAll() {
         EntityManager entityManager = JPA.em();
         Query query = entityManager.createNativeQuery("SELECT id, name, description FROM permission ORDER BY id ASC", Permission.class);
-        return query.getResultList();
+        List<Permission> result = query.getResultList();
+        entityManager.close();
+        return result;
     }
 }

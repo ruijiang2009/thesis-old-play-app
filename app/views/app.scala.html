@@ -3,10 +3,23 @@
 @header("App: " + app.getName())
 
     <div class="container">
-        App: @app.getName()  <a href="/app/?id=@app.getId()&op=edit">edit</a> <br><br>
+        App: @app.getName()  <a href="/app/?id=@app.getId()&op=edit">edit</a> <a href="/app/?id=@app.getId()&op=permission">mark permission</a><br><br>
 
         Description:<br>
         @app.getDescription();
+        <br><br>
+
+
+        Category: <br>
+        <table class="table table-striped table-bordered">
+            @for(category<- categories) {
+            <tr>
+                <td>@category.getId()</td>
+                <td><a href="/category/?id=@category.getId()">@category.getName()</a></td>
+            </tr>
+            }
+        </table>
+
         <br><br>
 
         Sentences:<br>
@@ -20,15 +33,16 @@
             }
         </table>
 
-        <br><br>
-
-        Category: <br>
+        Processed Sentence: <br>
         <table class="table table-striped table-bordered">
-            @for(category<- categories) {
-            <tr>
-                <td>@category.getId()</td>
-                <td><a href="/category/?id=@category.getId()">@category.getName()</a></td>
-            </tr>
+            @for(sentence <- sentences) {
+                @for(processedsentence <- sentence.getProcessedSentences()) {
+                    <tr>
+                        <td>
+                            @processedsentence.getContent()
+                        </td>
+                    </tr>
+                }
             }
         </table>
 

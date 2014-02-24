@@ -5,11 +5,17 @@
 <div class="container">
 Category @categoryName: @apps.size() apps <br>
 <table class="table table-striped table-bordered">
-    <th>Id</th><th>App Name</th>
+    <th>Id</th><th>view</th><th>edit</th><th>App Name</th>
     @for(app <- apps) {
     <tr>
         <td>
             @app.getId()
+        </td>
+        <td>
+            <a href="/app/?id=@app.getId()">view</a>
+        </td>
+        <td>
+            <a href="/app/?id=@app.getId()&op=edit">edit</a>
         </td>
         <td>
             <a href="/app/?id=@app.getId()">@app.getName()</a>

@@ -63,14 +63,17 @@ public class App implements Serializable{
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("defaultPersistenceUnit");
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         Query query = entityManager.createNativeQuery("SELECT id, NAME, description FROM app ORDER BY id ASC", App.class);
-        return query.getResultList();
+        List<App> result = query.getResultList();
+        entityManager.close();
+        return result;
     }
 
     public static App findById(Long id) {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("defaultPersistenceUnit");
         EntityManager entityManager = entityManagerFactory.createEntityManager();
-        return entityManager.find(App.class, id);
-
+        App app = entityManager.find(App.class, id);
+        entityManager.close();
+        return app;
         // return JPA.em().find(App.class, id); this is not working
     }
 
@@ -81,7 +84,9 @@ public class App implements Serializable{
 //        Query query = entityManager.createNativeQuery(
                 String.format("SELECT  a.id, a.name, a.description FROM app a JOIN app_category_map acm ON a.id = acm.app WHERE acm.category='%d';", id),
                 App.class);
-        return query.getResultList();
+        List<App> result = query.getResultList();
+        entityManager.close();
+        return result;
     }
 
     public static List<App> findByPermissionId(Long id) {
@@ -97,7 +102,9 @@ public class App implements Serializable{
                 "from app a " +
                 "join app_permission_map apm on a.id = apm.app " +
                 "join permission p on apm.permission = p.id where p.id = %d;", id));
-        return query.getResultList();
+        List<App> result = query.getResultList();
+        entityManager.close();
+        return result;
     }
 
     public List<String> processDescription() {

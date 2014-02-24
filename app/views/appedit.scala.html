@@ -11,6 +11,20 @@
     @app.getDescription();
     <br><br>
 
+
+    Category: <br>
+    <table class="table table-striped table-bordered">
+        @for(category<- categories) {
+        <tr>
+            <td>@category.getId()</td>
+            <td><a href="/category/?id=@category.getId()">@category.getName()</a></td>
+        </tr>
+        }
+    </table>
+
+    <br><br>
+
+
     Sentences:<br>
     <form class="form-horizontal" role="form" id="sentenceform" action="@routes.AppController.processSentenceSubmit()" method="post">
         <input type="hidden" id="appId" name="appId" value="@app.getId()"/>
@@ -40,20 +54,6 @@
 
     </form>
 
-
-
-
-    Category: <br>
-    <table class="table table-striped table-bordered">
-        @for(category<- categories) {
-        <tr>
-            <td>@category.getId()</td>
-            <td><a href="/category/?id=@category.getId()">@category.getName()</a></td>
-        </tr>
-        }
-    </table>
-
-    <br><br>
 
     Permission: <br>
     <table class="table table-striped table-bordered">

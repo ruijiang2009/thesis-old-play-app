@@ -101,6 +101,8 @@ public class Sentence implements Serializable{
     public static Sentence findById(Long id) {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("defaultPersistenceUnit");
         EntityManager entityManager = entityManagerFactory.createEntityManager();
-        return entityManager.find(Sentence.class, id);
+        Sentence sentence = entityManager.find(Sentence.class, id);
+        entityManager.close();
+        return sentence;
     }
 }

@@ -50,17 +50,17 @@ public class Category implements Serializable {
     public static Category findById(Long id) {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("defaultPersistenceUnit");
         EntityManager entityManager = entityManagerFactory.createEntityManager();
-        return entityManager.find(Category.class, id);
-
+        Category category = entityManager.find(Category.class, id);
+        entityManager.close();
+        return category;
 //        return JPA.em().find(Category.class, id);
     }
 
-    @play.db.jpa.Transactional
+    @Transactional
     public static List<Category> findAll() {
         EntityManager entityManager = JPA.em();
         Query query = JPA.em().createNativeQuery("SELECT category.id, category.name FROM category", Category.class);
-        List<Category> categories =  query.getResultList();
-        return categories;
+        return query.getResultList();
     }
 
     @Transactional
