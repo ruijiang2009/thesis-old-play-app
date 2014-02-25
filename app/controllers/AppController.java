@@ -27,7 +27,7 @@ import java.util.regex.Pattern;
 public class AppController extends Controller{
 
     @Transactional
-    public static Result show(Long id, String operation) {
+    public static Result show(Long id, String operation, Integer num) {
         App app = App.findById(id);
         List<Permission> permissions = Permission.findByAppId(app.getId());
         List<Sentence> sentenceList = Sentence.findByApp(app.getId());
@@ -35,7 +35,7 @@ public class AppController extends Controller{
         if(operation == null || !operation.equals("edit")) {
             return ok(views.html.app.render(app, permissions,sentenceList, categoryList));
         } else {
-            return ok(views.html.appedit.render(app, permissions,sentenceList, categoryList));
+            return ok(views.html.appedit.render(app, permissions,sentenceList, categoryList, num));
         }
     }
 
@@ -45,7 +45,7 @@ public class AppController extends Controller{
         List<Permission> permissions = Permission.findByAppId(app.getId());
         List<Sentence> sentenceList = Sentence.findByApp(app.getId());
         List<Category> categoryList = Category.findByApp(app.getId());
-        return ok(views.html.appedit.render(app, permissions,sentenceList, categoryList));
+        return ok(views.html.appedit.render(app, permissions,sentenceList, categoryList, 3));
     }
 
     @Transactional
@@ -102,6 +102,6 @@ public class AppController extends Controller{
         entityManager.getTransaction().commit();
         entityManager.close();
         // persist the objects in list
-        return redirect(routes.AppController.show(Long.parseLong(appId), ""));
+        return redirect(routes.AppController.show(Long.parseLong(appId), "", 3));
     }
 }

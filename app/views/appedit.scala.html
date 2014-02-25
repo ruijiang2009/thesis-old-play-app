@@ -1,4 +1,4 @@
-@(app: App, permissions: List[Permission], sentences: List[Sentence], categories: List[Category])
+@(app: App, permissions: List[Permission], sentences: List[Sentence], categories: List[Category], num: Integer)
 
 @header("App: " + app.getName())
 
@@ -31,13 +31,13 @@
         @for(sentence <- sentences) {
             @sentence.getContent()<br>
             <table>
-                @if(sentence.getProcessedSentences.size() < 3) {
+                @if(sentence.getProcessedSentences.size() < num) {
                     @for(processedsentence <- sentence.getProcessedSentences()) {
                         <tr>
                             <td><input type="text" class="form-control" id="@sentence.getId()_@processedsentence.getId()" name="@sentence.getId()_@processedsentence.getId()" value="@processedsentence.getContent()"/></td>
                         </tr>
                     }
-                    @for(x <- 1 to (3-sentence.getProcessedSentences().size())) {
+                    @for(x <- 1 to (num-sentence.getProcessedSentences().size())) {
                         <tr>
                         @if(x == 1 && sentence.getProcessedSentences.size() == 0) {
                             <td><input type="text" class="form-control" size="150" id="@sentence.getId()_new_@x" name="@sentence.getId()_new_@x" value="@sentence.getContent()"/></td>
