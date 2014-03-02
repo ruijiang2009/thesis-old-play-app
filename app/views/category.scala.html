@@ -5,9 +5,13 @@
 <div class="container">
 Category @categoryName: @apps.size() apps <br>
 <table class="table table-striped table-bordered">
-    <th>Id</th><th>view</th><th>edit</th><th>App Name</th>
+    <th>Sequence #</th><th>Id</th><th>view</th><th>edit</th><th>App Name</th>
+    @{val x =1}
     @for(app <- apps) {
     <tr>
+        <td>
+            @(apps.indexOf(app) + 1)
+        </td>
         <td>
             @app.getId()
         </td>
