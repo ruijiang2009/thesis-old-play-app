@@ -11,7 +11,7 @@ GET     /assets/*file                          controllers.Assets.at(path="/publ
 GET     /category/                             controllers.CategoryController.show(id: Long ?= 0, name: String ?= "")
 GET     /category/all                          controllers.CategoryController.list()
 
-GET     /app/                               controllers.AppController.show(id: Long ?= 0, op: String ?= "", num: Integer ?= 3)
+GET     /app/                               controllers.AppController.show(id: Long ?= 0, op: String ?= "", num: Integer ?= 3, default: String ?= "true")
 POST    /app/process_sentence               controllers.AppController.processSentenceSubmit()
 
 GET     /permission/:id                        controllers.PermissionController.show(id: Long)

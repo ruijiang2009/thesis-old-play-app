@@ -27,15 +27,16 @@ import java.util.regex.Pattern;
 public class AppController extends Controller{
 
     @Transactional
-    public static Result show(Long id, String operation, Integer num) {
+    public static Result show(Long id, String operation, Integer num, String showDefault) {
         App app = App.findById(id);
         List<Permission> permissions = Permission.findByAppId(app.getId());
         List<Sentence> sentenceList = Sentence.findByApp(app.getId());
         List<Category> categoryList = Category.findByApp(app.getId());
+        Boolean isDefault = Boolean.parseBoolean(showDefault.trim());
         if(operation == null || !operation.equals("edit")) {
             return ok(views.html.app.render(app, permissions,sentenceList, categoryList));
         } else {
-            return ok(views.html.appedit.render(app, permissions,sentenceList, categoryList, num));
+            return ok(views.html.appedit.render(app, permissions,sentenceList, categoryList, num, isDefault));
         }
     }
 
@@ -45,7 +46,7 @@ public class AppController extends Controller{
         List<Permission> permissions = Permission.findByAppId(app.getId());
         List<Sentence> sentenceList = Sentence.findByApp(app.getId());
         List<Category> categoryList = Category.findByApp(app.getId());
-        return ok(views.html.appedit.render(app, permissions,sentenceList, categoryList, 3));
+        return ok(views.html.appedit.render(app, permissions,sentenceList, categoryList, 3, true));
     }
 
     @Transactional
@@ -102,6 +103,6 @@ public class AppController extends Controller{
         entityManager.getTransaction().commit();
         entityManager.close();
         // persist the objects in list
-        return redirect(routes.AppController.show(Long.parseLong(appId), "", 3));
+        return redirect(routes.AppController.show(Long.parseLong(appId), "", 3, "true"));
     }
 }

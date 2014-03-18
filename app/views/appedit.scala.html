@@ -1,4 +1,4 @@
-@(app: App, permissions: List[Permission], sentences: List[Sentence], categories: List[Category], num: Integer)
+@(app: App, permissions: List[Permission], sentences: List[Sentence], categories: List[Category], num: Integer, isDefault: Boolean)
 
 @header("App: " + app.getName())
 
@@ -40,7 +40,11 @@
                     @for(x <- 1 to (num-sentence.getProcessedSentences().size())) {
                         <tr>
                         @if(x == 1 && sentence.getProcessedSentences.size() == 0) {
-                            <td><input type="text" class="form-control" size="150" id="@sentence.getId()_new_@x" name="@sentence.getId()_new_@x" value="@sentence.getContent()"/></td>
+                            @if(isDefault) {
+                                <td><input type="text" class="form-control" size="150" id="@sentence.getId()_new_@x" name="@sentence.getId()_new_@x" value="@sentence.getContent()"/></td>
+                            } else {
+                            <td><input type="text" class="form-control" size="150" id="@sentence.getId()_new_@x" name="@sentence.getId()_new_@x"/></td>
+                            }
                         } else {
                             <td><input type="text" class="form-control" size="150" id="@sentence.getId()_new_@x" name="@sentence.getId()_new_@x"/></td>
                         }
