@@ -32,8 +32,6 @@ public class Permission  implements Serializable{
     @Column(name = "description")
     private String description;
 
-
-
 //    @ManyToMany(cascade = {CascadeType.ALL})
 //    @JoinTable(name = "app_permission_map",
 //               joinColumns = {@JoinColumn(name="id")},
@@ -44,6 +42,15 @@ public class Permission  implements Serializable{
     public Set<AppPermissionMap> getAppPermissionMaps() {
         return this.appPermissionMaps;
     }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "permission")
+
+
+//    @ManyToMany
+//    @JoinTable(name="processed_sentence_permission_map",
+//               joinColumns={@JoinColumn(name="permission", referencedColumnName="ID")},
+//               inverseJoinColumns={@JoinColumn(name="processed_sentence", referencedColumnName="ID")})
+//    public List<ProcessedSentence> processedSentenceList;
 
     public void setAppPermissionMaps(Set appPermissionMaps) {
         this.appPermissionMaps = appPermissionMaps;

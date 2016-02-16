@@ -13,6 +13,7 @@ GET     /category/all                          controllers.CategoryController.li
 
 GET     /app/                               controllers.AppController.show(id: Long ?= 0, op: String ?= "", num: Integer ?= 3, default: String ?= "true")
 POST    /app/process_sentence               controllers.AppController.processSentenceSubmit()
+POST    /app/process_maked_permission       controllers.AppController.processedMarkedPermission()
 
 GET     /permission/:id                        controllers.PermissionController.show(id: Long)
 GET     /permission/                           controllers.PermissionController.list()

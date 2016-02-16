@@ -1,0 +1,52 @@
+@(app: App, permissions: List[Permission], categories: List[Category], processedSentences: List[ProcessedSentence])
+
+@header("App: " + app.getName())
+
+<div class="container">
+    This is edit mode. <br><br>
+
+    App: @app.getName() <a href="/app/?id=@app.getId()">view</a><br><br>
+
+    <b>Description:</b><br>
+    @app.getDescription();
+    <br><br>
+
+
+    <b>Category:</b> <br>
+    <table class="table table-striped table-bordered">
+        @for(category<- categories) {
+        <tr>
+            <td>@category.getId()</td>
+            <td><a href="/category/?id=@category.getId()">@category.getName()</a></td>
+        </tr>
+        }
+    </table>
+
+    <br><br>
+
+
+    <b>Processed Sentences:</b><br>
+    <form class="form-horizontal" role="form" id="sentenceform" action="@routes.AppController.processSentenceSubmit()" method="post">
+        <input type="hidden" id="appId" name="appId" value="@app.getId()"/>
+
+        <table class="table table-striped table-bordered">
+            <th width="70%">Sentence</th>
+            <th width="30%">Permissions</th>
+            @for(processedSentence <- processedSentences) {
+            <tr>
+                <td>@processedSentence.getContent()</td>
+                <td>
+                    @for(permission <- permissions) {
+                        <input type="checkbox" name="@processedSentence.getId()_@permission.getId()" id="@processedSentence.getId()_@permission.getId()"/>@permission.getName()<br>
+                    }
+                </td>
+            </tr>
+            }
+        </table>
+        <br>
+        <button type="submit" class="btn btn-primary">Submit</button>
+
+    </form>
+</div>
+
+@footer()

@@ -33,11 +33,27 @@ public class AppController extends Controller{
         List<Sentence> sentenceList = Sentence.findByApp(app.getId());
         List<Category> categoryList = Category.findByApp(app.getId());
         Boolean isDefault = Boolean.parseBoolean(showDefault.trim());
-        if(operation == null || !operation.equals("edit")) {
-            return ok(views.html.app.render(app, permissions,sentenceList, categoryList));
-        } else {
+        if(operation!= null && operation.equals("edit")){
             return ok(views.html.appedit.render(app, permissions,sentenceList, categoryList, num, isDefault));
+        } else if(operation != null && operation.equals("permission")) {
+            return markPermission(id);
+        } else {
+            return ok(views.html.app.render(app, permissions,sentenceList, categoryList));
         }
+    }
+
+    @Transactional
+    public static Result markPermission(Long id) {
+        App app = App.findById(id);
+        List<Permission> permissions = Permission.findByAppId(app.getId());
+        List<Sentence> sentenceList = Sentence.findByApp(app.getId());
+        List<Category> categoryList = Category.findByApp(app.getId());
+        List<ProcessedSentence> processedSentenceList = Lists.newArrayList();
+        for(Sentence sentence : sentenceList) {
+            processedSentenceList.addAll(sentence.getProcessedSentences());
+        }
+        return ok(views.html.appmarkpermission.render(app, permissions, categoryList, processedSentenceList));
+
     }
 
     @Transactional
@@ -103,6 +119,13 @@ public class AppController extends Controller{
         entityManager.getTransaction().commit();
         entityManager.close();
         // persist the objects in list
+        return redirect(routes.AppController.show(Long.parseLong(appId), "", 3, "true"));
+    }
+
+    @Transactional
+    public static Result processedMarkedPermission() {
+        String appId = null;
+
         return redirect(routes.AppController.show(Long.parseLong(appId), "", 3, "true"));
     }
 }

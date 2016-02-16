@@ -4,6 +4,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -27,6 +28,12 @@ public class ProcessedSentence implements  Serializable{
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "sentence", nullable = false)
     private Sentence sentence;
+
+//    @ManyToMany
+//    @JoinTable(name="processed_sentence_permission_map",
+//        joinColumns={@JoinColumn(name="processed_sentence", referencedColumnName="ID")})
+//    private List<Permission> permissionList;
+
 
     public Long getId() {
         return id;
